@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: algo-arena-staging
+  name: algo-arena
   labels:
-    app: algo-arena-staging
+    app: algo-arena
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: algo-arena-staging
+      app: algo-arena
   template:
     metadata:
       labels:
-        app: algo-arena-staging
+        app: algo-arena
     spec:
       containers:
-        - name: algo-arena-staging
+        - name: algo-arena
           image: 100xdevs/algo-arena:1
           imagePullPolicy: Always
           ports:
@@ -29,7 +29,7 @@ spec:
       volumes:
         - name: secret
           secret:
-            secretName: algo-arena-staging-secret
+            secretName: algo-arena-secret
             items:
               - key: .env
                 path: .env

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cms-staging
+  name: algo-arena-staging
 spec:
   destination:
     name: ''
