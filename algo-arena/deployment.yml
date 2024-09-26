@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: algo-arena-staging
+  labels:
+    app: algo-arena-staging
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: algo-arena-staging
+  template:
+    metadata:
+      labels:
+        app: algo-arena-staging
+    spec:
+      containers:
+        - name: algo-arena-staging
+          image: 100xdevs/algo-arena:1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: secret
+              mountPath: /usr/src/app/.env
+              subPath: .env
+      imagePullSecrets:
+        - name: regcred
+      volumes:
+        - name: secret
+          secret:
+            secretName: algo-arena-staging-secret
+            items:
+              - key: .env
+                path: .env
