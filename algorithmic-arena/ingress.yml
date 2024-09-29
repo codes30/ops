@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: algo-arena-ingress
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+
+spec:
+  rules:
+    - host: algo-arena.100xdevs.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nextjs-service  
+                port:
+                  number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: judge0-api-service  
+                port:
+                  number: 8080
+
+  tls:
+    - hosts:
+        - algo-arena.100xdevs.com
+      secretName: supercall-tls  
